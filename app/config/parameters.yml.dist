@@ -12,5 +12,5 @@ parameters:
     mailer_password:   ~
 
     locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            ThisTokenIsNotSoSecretAsItIsOpenSource
     ga.tracking.id:    XXX
