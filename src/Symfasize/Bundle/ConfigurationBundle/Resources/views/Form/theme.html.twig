@@ -1,0 +1,119 @@
+{# horizontal Bootstrap3 compatible form theme #}
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_widget_simple %}
+    {% spaceless %}
+        {% set type = type|default('text') %}
+        <input type="{{ type }}" {{ block('widget_attributes_input') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endspaceless %}
+{% endblock form_widget_simple %}
+
+{% block widget_attributes_input %}
+    {% spaceless %}
+        {% set attr = attr|merge({'class': 'form-control'}) %}
+        id="{{ id }}" name="{{ full_name }}"{% if read_only %} readonly="readonly"{% endif %}{% if disabled %} disabled="disabled"{% endif %}{% if required %} required="required"{% endif %}{% if max_length %} maxlength="{{ max_length }}"{% endif %}{% if pattern %} pattern="{{ pattern }}"{% endif %}
+        {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+    {% endspaceless %}
+{% endblock widget_attributes_input %}
+
+{% block form_row %}
+    {% import "SymfasizeConfigurationBundle:Form:macros.html.twig" as form_helper %}
+
+    {% if row_attr is not defined %}
+        {% set row_attr = {'class': 'col-sm-10'} %}
+    {% else %}
+        {% set row_attr = {'class': 'col-sm-10'}|merge(row_attr) %}
+    {% endif %}
+
+    <!-- START row -->
+    {# extra checkbox handling #}
+    {% if checked is defined %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <div class="form-group">
+            {{ form_errors(form) }}
+            <div class="col-sm-offset-2 col-sm-6">
+                <div class="checkbox">
+                    <label>
+                        {{ form_widget(form) }}
+                        {{ label|trans({}, translation_domain) }}
+                    </label>
+
+                    {% if help is defined %}
+                        <div class="help-block">{{ help|trans }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="form-group">
+            {{ form_label(form, label|default(null), {'label_attr': {'class': 'col-sm-2 control-label' }} ) }}
+            <div {{ form_helper.attributes(row_attr) }}>
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+
+
+                {% if helpmore is defined %}
+                    {{ form_helper.helpmore(helpmore) }}
+                {% endif %}
+
+                {% if help is defined %}
+                    <div class="help-block">
+                        {% if help_raw is defined and help_raw %}
+                            {{ help|trans|raw }}
+                        {% else %}
+                            {{ help|trans }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- END row -->
+{% endblock form_row %}
+
+{% block form_rest %}
+    {% for child in form %}
+        {% if not child.rendered %}
+            {{ form_row(child) }}
+        {% endif %}
+    {% endfor %}
+{% endblock form_rest %}
+
+{% block button_row %}
+    {% spaceless %}
+        <div>
+            {{ form_widget(form, {'attr': {'class': 'btn btn-primary' }} ) }}
+        </div>
+    {% endspaceless %}
+{% endblock button_row %}
+
+{% block form_label %}
+    {% spaceless %}
+        {% if label is not sameas(false) %}
+            {% if not compound %}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {% endif %}
+            {% if required %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+            {% endif %}
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain)|title }}</label>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_label %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <ul class="list-unstyled">
+                {% for error in errors %}
+                    <li><p class="text-danger">{{ error.message }}</p></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}

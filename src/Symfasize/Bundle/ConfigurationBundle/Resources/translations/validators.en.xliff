@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="configuration.project_directory.not_blank">
+                <source>configuration.project_directory.not_blank</source>
+                <target>Please provide the directory where the new project should be created in!</target>
+            </trans-unit>
+            <trans-unit id="bundle.namespace.not_blank">
+                <source>bundle.namespace.not_blank</source>
+                <target>Namespacing makes fun and avoids naming collision. Please provide a namespace for this Bundle!</target>
+            </trans-unit>
+            <trans-unit id="bundle.namespace.regex">
+                <source>bundle.namespace.regex</source>
+                <target>Please provide a valid Bundle name like Acme/MyBundle or Acme/Bundle/MyBundle etc.</target>
+            </trans-unit>
+
+            <trans-unit id="bundle.name.not_blank">
+                <source>bundle.name.not_blank</source>
+                <target>How would you refer to a Bundle without a name?</target>
+            </trans-unit>
+            <trans-unit id="bundle.name.regex">
+                <source>bundle.namespace.regex</source>
+                <target>Please provide a valid Bundle name like Acme/MyBundle or Acme/Bundle/MyBundle etc.</target>
+            </trans-unit>
+            <trans-unit id="bundle_configuration.dir.not_blank">
+                <source>bundle_configuration.dir.not_blank</source>
+                <target>You certainly don't want to pipe bundle generation to /dev/null, so please provide the target directory (by default: "src/")</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

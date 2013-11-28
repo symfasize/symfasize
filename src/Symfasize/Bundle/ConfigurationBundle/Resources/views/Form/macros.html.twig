@@ -1,0 +1,12 @@
+{% macro helpmore(message) %}
+    <span class="popover-me glyphicon glyphicon-question-sign" data-content="{{ message|trans|e }}" data-container="body"></span>
+{% endmacro %}
+
+{% macro attributes(attr) %}
+    {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+{% endmacro %}
+
+{% macro errors_class(form) %}
+{% if form.vars.errors|length > 0 %} has-error{% endif %}
+{% endmacro %}
+

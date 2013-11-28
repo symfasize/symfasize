@@ -1,0 +1,4 @@
+symfasize_configuration:
+    resource: "@SymfasizeConfigurationBundle/Resources/config/routing.yml"
+    prefix:   /
+

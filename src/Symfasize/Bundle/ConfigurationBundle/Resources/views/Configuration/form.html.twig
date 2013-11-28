@@ -1,0 +1,161 @@
+{% import "SymfasizeConfigurationBundle:Form:macros.html.twig" as form_helper %}
+{{ form_start(form, {
+'action': path('configuration_generate'),
+'method': 'POST',
+'attr': {
+'class': 'form-horizontal',
+'enctype': 'application/x-www-form-urlencoded',
+'id': 'symfasized'
+}
+}
+) }}
+{#
+if you want to avoid client validation add:
+'novalidate': 'novalidate',
+to the "attr" list
+#}
+
+{% if not form.vars.valid %}
+    <div class="alert alert-danger">
+        <span class="glyphicon glyphicon-hand-down"></span>
+        Oh no! I can haz errors!
+        <span class="glyphicon glyphicon-hand-down"></span>
+    </div>
+{% endif %}
+{{ form_errors(form) }}
+
+<fieldset>
+    <legend>Setup</legend>
+    {{ form_row(form.projectDirectory, {
+    'help': 'help.project_directory',
+    'attr': {
+    'pattern': '^\/([a-zA-Z0-9][a-zA-Z0-9\-\.\_\/]{0,61})+[a-zA-Z]+$',
+    'title':   'Please enter a valid unix path like /var/www/my-project' }})
+    }}
+
+    {{ form_row(form.useGitCommits, {'help': 'help.use_git_commits'}) }}
+    {{ form_row(form.generateScriptOnly, {'help': 'help.generate_script_only'}) }}
+</fieldset>
+
+<fieldset>
+    <legend>Symfony Configuration</legend>
+    {{ form_row(form.symfonyVersion, {
+    'row_attr': {'class': 'col-sm-4'},
+    'help': 'help.symfony_version',
+    'help_raw': true
+    }
+    ) }}
+
+    {{ form_row(form.removeDemoBundle, {'help': 'help.remove_demo_bundle'}) }}
+</fieldset>
+
+<fieldset>
+    <legend>{{ 'label.bundle_configuration'|trans }}</legend>
+
+    {{ form_row(form.bundleConfiguration.dir, {'row_attr': {'class': 'col-sm-4' }} ) }}
+    {{ form_row(form.bundleConfiguration.format, {'attr': {'class': 'form-control'}, 'row_attr': {'class': 'col-sm-2' }}
+    ) }}
+    {{ form_row(form.bundleConfiguration.withStructure) }}
+</fieldset>
+
+{% set prototype %}
+{% spaceless %}
+    {% set bundle_prototype = form.bundles.vars.prototype %}
+    <div class="col-xs-2">
+        {{ form_label(
+        bundle_prototype.namespace,
+        label|default(null),
+        {'label_attr': {'class': 'col-sm-2 control-label' }}
+        ) }}
+    </div>
+
+    <div class="col-xs-4">
+        {{ form_widget(bundle_prototype.namespace, {'help': 'help.bundle'}) }}
+    </div>
+
+    <div class="col-xs-1">
+        {{ form_label(
+        bundle_prototype.name,
+        label|default(null),
+        {'label_attr': {'class': 'control-label' }}
+        ) }}
+    </div>
+    <div class="col-xs-3">
+        {{ form_widget(bundle_prototype.name, {'help': 'help.bundle'}) }}
+    </div>
+    <div class="col-xs-2">
+        <a class="btn btn-mini btn-danger delete" href="#"
+           onclick="return confirm('{{ 'confirm.delete_bundle'|trans }}')">{{ 'button.delete'|trans }}</a>
+    </div>
+{% endspaceless %}
+{% endset %}
+
+<fieldset>
+    <legend>{{ 'label.bundles'|trans }}</legend>
+    <p class="help-block">
+        Each bundle is hosted under a namespace (like <code>Acme/Bundle/MyBundle</code>).
+        The namespace should begin with a "vendor" name like your company name, your
+        project name, or your client name, followed by one or more optional category
+        sub-namespaces, and it should end with the bundle name itself
+        (which must have Bundle as a suffix).
+    </p>
+
+    <p class="help-block">
+        See <a href="http://symfony.com/doc/current/cookbook/bundles/best_practices.html#index-1">Best Practices</a>
+        chapter
+        in the official cookbock for more details on bundle naming conventions.
+    </p>
+
+    <div class="form-group">
+        <ul class="bundles list-unstyled" data-prototype="{{ prototype|e }}">
+            {% for bundle in form.bundles %}
+                <li class="clearfix">
+                    <div class="col-xs-2">
+                        {{ form_label(
+                        bundle.namespace,
+                        label|default(null),
+                        {'label_attr': {'class': 'col-sm-2 control-label' }}
+                        ) }}
+                    </div>
+
+                    <div class="col-xs-4{{ form_helper.errors_class(bundle.namespace) }}">
+                        {{ form_widget(bundle.namespace, {'help': 'help.bundle'}) }}
+                        {{ form_errors(bundle.namespace) }}
+                    </div>
+
+                    <div class="col-xs-1">
+                        {{ form_label(
+                        bundle.name,
+                        label|default(null),
+                        {'label_attr': {'class': 'control-label' }}
+                        ) }}
+                    </div>
+                    <div class="col-xs-3{{ form_helper.errors_class(bundle.name) }}">
+                        {{ form_widget(bundle.name, {'help': 'help.bundle'}) }}
+                        {{ form_errors(bundle.name) }}
+                    </div>
+                    {% if not loop.first %}
+                        <div class="col-xs-2">
+                            <a class="btn btn-mini btn-danger delete" href="#"
+                               onclick="return confirm('{{ 'confirm.delete_bundle'|trans }}')">{{ 'button.delete'|trans }}</a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</fieldset>
+
+<div class="alert alert-warning">
+    {{ 'missing_options_question'|trans }} <a
+            href="{{ repository_url }}" class="alert-link">{{ 'missing_options_contribute'|trans }}</a>
+</div>
+
+<div>
+    <button id="configuration_button_generate" class="btn btn-primary btn-lg" type="submit">
+        <span class="glyphicon glyphicon-import"></span>
+        {{ 'button.generate'|trans }}
+    </button>
+</div>
+
+{{ form_end(form) }}

@@ -1,0 +1,93 @@
+{% extends 'SymfasizeConfigurationBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Configure Your Symfony2 Project</h1>
+
+            <div class="alert alert-info">Symfasize creates a new
+                <a href="https://packagist.org/packages/symfony/framework-standard-edition" class="alert-link">symfony/framework-standard-edition</a>
+                project and executes recurring steps after installation.
+                Symfasize generates a plain shell script for you.
+                No extra tool is needed! No overhead!
+                Just start with your Symfony2 project as fast as possible!
+                <a href="{{ path('symfasize.about') }}" class="alert-link">More Information ...</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Symfasize" height="200"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ include('SymfasizeConfigurationBundle:Configuration:form.html.twig') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <br/>
+            <h4>Next steps</h4>
+            The shell script will jump to according directories, so don't worry where
+            you execute this shell script from.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <br/>
+            <h5>... with plain shell script:</h5>
+            Save the generated <code>symfasize.sh</code> anywhere on your unix machine and run:
+            <div>
+                <br/>
+                <code>
+                    chmod 744 symfasize.sh<br/>
+                    ./symfasize.sh
+                </code>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <br/>
+            <h5>... with file archive:</h5>
+            Save the generated <code>symfasize.zip</code> anywhere on your unix machine and run:
+            <div>
+                <br/>
+                <code>
+                    unzip symfasize.zip<br/>
+                    chmod 744 symfasize/symfasize.sh<br/>
+                    ./symfasize/symfasize.sh
+                </code>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <br/>
+
+            <p>
+                After execution is done, jump in to your project directory and
+                enjoy your fresh installed Symfony2 project.
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if not app.debug %}
+        <script>
+            $('#configuration_button_generate').click(function (e) {
+                var _this = this;
+
+                ga('send', 'event', 'form', 'symfasized', {
+                    'hitCallback': function () {
+                        $(_this).parents('form').first().submit();
+                    }
+                });
+
+                return !window.ga;
+            });
+        </script>
+    {% endif %}
+{% endblock javascripts %}
+
+

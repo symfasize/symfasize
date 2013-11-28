@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- start form stuff -->
+            <trans-unit id="button.generate">
+                <source>button.generate</source>
+                <target>Bootstrap My Symfony2 Project</target>
+            </trans-unit>
+            <trans-unit id="button.delete">
+                <source>button.delete</source>
+                <target>delete</target>
+            </trans-unit>
+            <trans-unit id="confirm.delete_bundle">
+                <source>confirm.delete_bundle</source>
+                <target>Are u serious?</target>
+            </trans-unit>
+
+            <trans-unit id="Use git commits">
+                <source>Use git commits</source>
+                <target>Use Git Commits Between Actions</target>
+            </trans-unit>
+            <trans-unit id="Dir">
+                <source>Dir</source>
+                <target>Target directory</target>
+            </trans-unit>
+            <trans-unit id="Format">
+                <source>Format</source>
+                <target>Configuration format</target>
+            </trans-unit>
+            <trans-unit id="With structure">
+                <source>With structure</source>
+                <target>Generate the whole directory structure</target>
+            </trans-unit>
+            <!-- end form stuff -->
+
+            <trans-unit id="label.bundle_configuration">
+                <source>label.bundle_configuration</source>
+                <target>Common Bundle Configuration</target>
+            </trans-unit>
+            <trans-unit id="label.bundles">
+                <source>label.bundles</source>
+                <target>Bundles</target>
+            </trans-unit>
+
+            <trans-unit id="missing_options_question">
+                <source>missing_options_question</source>
+                <target>Missing some configuration options?</target>
+            </trans-unit>
+            <trans-unit id="missing_options_contribute">
+                <source>missing_options_contribute</source>
+                <target>Contribute!</target>
+            </trans-unit>
+            <trans-unit id="help.project_directory">
+                <source>help.project_directory</source>
+                <target>The directory where the new Symfony project should live in. This directory must not exist! Symfasize will generate this directory during it's setup.</target>
+            </trans-unit>
+            <trans-unit id="help.use_git_commits">
+                <source>help.use_git_commits</source>
+                <target>If enabled a Git repository will be initialized after project generation
+                and after each step of code manipulation a commit will be done.</target>
+            </trans-unit>
+            <trans-unit id="help.generate_script_only">
+                <source>help.generate_script_only</source>
+                <target>By default Symfasize generates a plain shell script after you hit the submit button.
+                When you disable this option a file archive with this shell script and an configuration file (for future usage) will be
+                generated.</target>
+            </trans-unit>
+            <trans-unit id="help.symfony_version">
+                <source>help.symfony_version</source>
+                <target>Any available Symfony version, like e.g 2.2.10, 2.3.7.
+                    Check the <![CDATA[<a href="http://symfony.com/download">Symfony Installation Page</a>]]> for all possible releases.
+                    Leave this field blank to get the latest version!
+                </target>
+            </trans-unit>
+            <trans-unit id="help.remove_demo_bundle">
+                <source>help.remove_demo_bundle</source>
+                <target>This bundle is included in the Symfony Standard Edition. If you are used to Symfony and
+                    it's Bundle configuration you may drop this bundle and all it's configuration.
+                </target>
+            </trans-unit>
+
+
+
+
+        </body>
+    </file>
+</xliff>

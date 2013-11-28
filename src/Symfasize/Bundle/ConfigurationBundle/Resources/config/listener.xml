@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="symfasize.archive.shell_listener" class="Symfasize\Bundle\ConfigurationBundle\EventListener\Archive\ShellListener">
+            <tag name="kernel.event_listener" event="symfasize.archive" method="onArchive"/>
+            <argument type="service" id="symfasize.template.shell"/>
+        </service>
+
+        <service id="symfasize.archive.serializer_listener" class="Symfasize\Bundle\ConfigurationBundle\EventListener\Archive\SerializerListener">
+            <tag name="kernel.event_listener" event="symfasize.archive" method="onArchive"/>
+            <argument type="service" id="serializer"/>
+        </service>
+
+        <service id="symfasize.listener.render.git_commit_listener"
+                 class="Symfasize\Bundle\ConfigurationBundle\EventListener\Render\GitCommitListener">
+            <tag name="kernel.event_listener" event="symfasize.project.generate" method="onProjectGenerate"/>
+            <tag name="kernel.event_listener" event="symfasize.demo_bundle.remove" method="onDemoBundleRemove"/>
+            <tag name="kernel.event_listener" event="symfasize.bundle.generate" method="onBundleGenerate"/>
+        </service>
+    </services>
+
+</container>

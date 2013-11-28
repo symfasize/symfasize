@@ -1,0 +1,16 @@
+homepage:
+    path: /
+    defaults: { _controller: SymfasizeConfigurationBundle:Configuration:index }
+
+configuration:
+    path: /
+    defaults: { _controller: SymfasizeConfigurationBundle:Configuration:index }
+
+configuration_generate:
+    path: /
+    defaults: { _controller: SymfasizeConfigurationBundle:Configuration:index }
+    methods: [POST]
+
+symfasize.about:
+    path: /about
+    defaults: { _controller: FrameworkBundle:Template:template, template: 'SymfasizeConfigurationBundle:Static:about.html.twig' }

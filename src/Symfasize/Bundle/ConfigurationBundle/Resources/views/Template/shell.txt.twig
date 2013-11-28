@@ -1,0 +1,83 @@
+{% import _self as self %}
+#!/bin/bash
+{% set project_configuration = configuration.projectConfiguration %}
+{% set symfony_configuration = configuration.symfonyConfiguration %}
+
+COMPOSER="php composer.phar"
+SYMFONY_VERSION="{{ symfony_configuration.version }}"
+PARENT_DIR={{ project_configuration.parentDirectory }}
+PROJECT_DIR={{ project_configuration.projectDirectory }}
+WHOAMI=`whoami`
+WWW_USER="www-data"
+PHP="php"
+
+# check if project's parent directory does exist, create it otherwise
+if [ ! -d "$PARENT_DIR" ]; then
+    RESULT=$( mkdir -p $PARENT_DIR 2>&1 )
+
+    # try sudo if mkdir failed due to permissions
+    if ( echo $RESULT | grep -q "Permission denied" ); then
+        sudo mkdir -p $PARENT_DIR
+        sudo chown $WHOAMI:$WHOAMI $PARENT_DIR
+    fi
+fi
+
+# project directory needs to be empty!
+if [ -d "$PROJECT_DIR" ]; then
+    echo "Project directory $PROJECT_DIR needs to be empty. Aborting ..."
+    exit 2
+fi
+
+# Download composer to parent dir, will be moved to project dir afterwards.
+# We are always downloading composer independent to global installations,
+# it's a best practise to add the used composer version to the repository.
+{{ self.echo('Changing to directory: ' ~ project_configuration.parentDirectory) }}
+cd $PARENT_DIR
+
+{{ self.echo('Installing Composer') }}
+curl -sS https://getcomposer.org/installer | php
+
+php composer.phar create-project symfony/framework-standard-edition $PROJECT_DIR $SYMFONY_VERSION --no-interaction
+
+# if composer could not create project directory something very strange is going on
+if [ ! -d "$PROJECT_DIR" ]; then
+    echo "Project directory could not be installed to $PROJECT_DIR. Aborting ..."
+    exit 2
+fi
+
+mv composer.phar "$PROJECT_DIR/"
+
+{{ self.echo('Changing to directory: ' ~ project_configuration.projectDirectory) }}
+cd $PROJECT_DIR
+{{ dispatch('symfasize.project.generate') }}
+
+{% if symfony_configuration.shouldRemoveDemoBundle %}
+# remove demo bundle from AppKernel
+{{ self.echo('Removing AcmeDemoBundle') }}
+sed -i "/DemoBundle/d" app/AppKernel.php
+
+# remove demo bundle from routing
+sed -i "/demo/d" app/config/routing_dev.yml;
+sed -i "/AcmeDemoBundle/d" app/config/routing_dev.yml;
+rm -rf src/Acme/
+{{ dispatch('symfasize.demo_bundle.remove') }}
+{% endif %}
+
+# check if device is mounted with acl
+# if yes call setfacl on shared app directories
+{{ self.echo('Set file permissions') }}
+ACL_CHECK=`mount | grep "on / "  | grep acl`
+
+if [ "$ACL_CHECK" != "" ]; then
+    sudo setfacl -R -m u:$WWW_USER:rwX -m u:`whoami`:rwX app/cache app/logs
+    sudo setfacl -dR -m u:$WWW_USER:rwX -m u:`whoami`:rwX app/cache app/logs
+fi
+
+# generate bundles
+{% for bundle in symfony_configuration.bundles %}
+{{ self.echo('Generate Bundle ' ~ bundle.name) }}
+$PHP app/console generate:bundle --namespace={{ bundle.namespace }} --bundle-name={{ bundle.name }} --dir={{ bundle.dir }} --format={{ bundle.format }} --no-interaction
+{{ dispatch('symfasize.bundle.generate', {'bundle': bundle}) }}
+{% endfor %}
+
+{% macro echo(message) %}echo -e "\033[32m {{ message }}"{% endmacro %}

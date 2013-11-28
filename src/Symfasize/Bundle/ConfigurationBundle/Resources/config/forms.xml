@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="symfasize.form.configuration_type" class="Symfasize\Bundle\ConfigurationBundle\Form\ConfigurationType">
+            <tag name="form.type" alias="configuration" />
+        </service>
+
+        <service id="symfasize.form.bundle_configuration_type" class="Symfasize\Bundle\ConfigurationBundle\Form\BundleConfigurationType">
+            <tag name="form.type" alias="bundle_configuration" />
+        </service>
+
+        <service id="symfasize.form.bundle_type" class="Symfasize\Bundle\ConfigurationBundle\Form\BundleType">
+            <tag name="form.type" alias="bundle" />
+        </service>
+    </services>
+
+</container>

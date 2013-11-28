@@ -1,0 +1,83 @@
+{% extends 'SymfasizeConfigurationBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h1>About</h1>
+
+            <p>
+                Symfasize targets developers working in web agencies or who have to create new Symfony projects
+                (based on the <a href="https://packagist.org/packages/symfony/framework-standard-edition">Symfony
+                    Standard Edition</a>)
+                quite often doing the same operations during setup on and on and on.
+                <br/>
+                Symfasize makes bootstraping of a new Symfony project easier by creating a shell script
+                which contains all the steps you would do manually.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <img src="{{ asset('images/about.jpg') }}" alt="about" height="150" style="margin-top: 30px;"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>FAQ</h1>
+
+            <h3>Hello?</h3>
+
+            <p>Hi! My name is Frank Stelzer and
+                I'm working for <a href="http://sensiolabs.de" target="_blank">SensioLabs Deutschland</a> and my passion
+                is <a href="http://symfony.com">Symfony2</a>.
+                Need more information? Then you might want to visit me on <a href="https://github.com/frastel">GitHub</a>
+                or <a href="https://twitter.com/frastel">Twitter</a>.
+            </p>
+
+            <h3>Why was this project created?</h3>
+
+            <p>Why not?</p>
+
+            <h3>But Whhhhyyyyyyyyyy?</h3>
+
+            <p>Because developers are lazy and I love automation. I searched for a topic for another pet project
+                and here we go. I wanted to try out some things ... and come on it's just fun.</p>
+
+            <h3>A shell script ... Really?</h3>
+
+            <p>
+                Symfasize generates a shell script which should be executed on your development machine. Yes, that's
+                true.
+                I know there are better ways and tools out there for realizing the same result. But this project
+                should target the very beginners with maybe few Unix knowledge.
+            </p>
+
+            <h3>I checked the source code ... it seems quite bloated and over-engineered?</h3>
+
+            <p>
+                Indeed! This is one of my pet projects for Symfony2 (Symfony is not really needed for this kind of small
+                project).
+                Things will be done here which wouldn't be done in other projects normally.
+                Some things are good (like the DDD approach) and others are quite bad (e.g. firing events in Twig
+                templates).
+                The project should be fun, nothing more nothing less.
+            </p>
+
+            <h3>I miss some configuration options. Can you add them?</h3>
+
+            <p>
+                Maybe :) Add some <a href="{{ repository_issues_url }}">issue on GitHub</a> or even
+                better: Fork <a href="{{ repository_url }}">the code</a> and add a pull
+                request!
+            </p>
+
+            <h3>Which are your next steps?</h3>
+
+            <p>
+                Please check the <a href="{{ repository_issues_url }}/assigned/frastel?state=open">issue
+                    list on GitHub</a> for that.
+                On every assigned issue will be worked on.
+            </p>
+        </div>
+    </div>
+{% endblock %}
