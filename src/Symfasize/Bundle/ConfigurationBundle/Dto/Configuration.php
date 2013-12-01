@@ -54,6 +54,13 @@ class Configuration
     protected $bundles = array();
 
     /**
+     * @Assert\Type(type="bool")
+     *
+     * @var bool
+     */
+    protected $withBundleWizard = false;
+
+    /**
      * @param mixed $projectDirectory
      */
     public function setProjectDirectory($projectDirectory)
@@ -170,5 +177,21 @@ class Configuration
     public function getGenerateScriptOnly()
     {
         return $this->generateScriptOnly;
+    }
+
+    /**
+     * @param bool $withBundleWizard
+     */
+    public function setWithBundleWizard($withBundleWizard)
+    {
+        $this->withBundleWizard = $withBundleWizard;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getWithBundleWizard()
+    {
+        return $this->withBundleWizard;
     }
 }

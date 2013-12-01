@@ -21,6 +21,8 @@ class ConfigurationType extends AbstractType
 
         $builder->add('bundleConfiguration', 'bundle_configuration');
         $builder->add('bundles', 'collection', array('type' => 'bundle', 'allow_add' => true));
+
+        $builder->add('withBundleWizard', new CheckboxType(), array('required' => false));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
