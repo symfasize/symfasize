@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Symfasize\Bundle\ConfigurationBundle\Twig;
 
-
-use Symfasize\Bundle\ConfigurationBundle\Event\RenderContext;
-use Symfasize\Bundle\ConfigurationBundle\Event\RenderEvent;
+use Symfasize\Bundle\ConfigurationBundle\Event\RenderEventBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DispatchExtension extends \Twig_Extension
@@ -16,11 +13,18 @@ class DispatchExtension extends \Twig_Extension
     private $eventDispatcher;
 
     /**
-     * @param EventDispatcherInterface $eventDispatcher
+     * @var RenderEventBuilder
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher)
+    private $eventBuilder;
+
+    /**
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param RenderEventBuilder       $eventBuilder
+     */
+    public function __construct(EventDispatcherInterface $eventDispatcher, RenderEventBuilder $eventBuilder)
     {
         $this->eventDispatcher = $eventDispatcher;
+        $this->eventBuilder = $eventBuilder;
     }
 
     /**
@@ -43,7 +47,7 @@ class DispatchExtension extends \Twig_Extension
      */
     public function dispatch($eventName, array $contextParameters = array())
     {
-        $event = new RenderEvent(new RenderContext($contextParameters));
+        $event = $this->eventBuilder->build($contextParameters);
 
         $this->eventDispatcher->dispatch($eventName, $event);
 

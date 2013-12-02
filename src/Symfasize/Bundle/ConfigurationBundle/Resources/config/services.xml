@@ -13,9 +13,13 @@
         <service id="symfasize.configuration_assembler"
                  class="Symfasize\Bundle\ConfigurationBundle\Assembler\ConfigurationAssembler"/>
 
+        <service id="symfasize.event.render_event_builder"
+                 class="Symfasize\Bundle\ConfigurationBundle\Event\RenderEventBuilder" public="false"/>
+
         <service id="symfasize.twig.dispatch_extension"
                  class="Symfasize\Bundle\ConfigurationBundle\Twig\DispatchExtension">
             <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="symfasize.event.render_event_builder"/>
             <tag name="twig.extension"/>
         </service>
 
