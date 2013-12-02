@@ -2,7 +2,6 @@
 #!/bin/bash
 {% set project_configuration = configuration.projectConfiguration %}
 {% set symfony_configuration = configuration.symfonyConfiguration %}
-
 COMPOSER="php composer.phar"
 SYMFONY_VERSION="{{ symfony_configuration.version }}"
 PARENT_DIR={{ project_configuration.parentDirectory }}
@@ -28,12 +27,9 @@ if [ -d "$PROJECT_DIR" ]; then
     exit 2
 fi
 
-# Download composer to parent dir, will be moved to project dir afterwards.
+# Download composer to current dir, will be moved to project dir afterwards.
 # We are always downloading composer independent to global installations,
 # it's a best practise to add the used composer version to the repository.
-{{ self.echo('Changing to directory: ' ~ project_configuration.parentDirectory) }}
-cd $PARENT_DIR
-
 {{ self.echo('Installing Composer') }}
 curl -sS https://getcomposer.org/installer | php
 
