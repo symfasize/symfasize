@@ -18,7 +18,7 @@ class BundleConfigurationType extends AbstractType
             'format',
             'choice',
             array(
-                'choices' => array('yml' => 'yml', 'xml' => 'xml', 'php' => 'php', 'annotations' => 'annotations')
+                'choices' => array('yml' => 'yml', 'xml' => 'xml', 'php' => 'php', 'annotation' => 'annotation')
             )
         );
         $builder->add('withStructure', new CheckboxType(), array('required' => false));
