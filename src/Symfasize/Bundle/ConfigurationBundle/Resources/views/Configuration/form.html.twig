@@ -9,11 +9,6 @@
 }
 }
 ) }}
-{#
-if you want to avoid client validation add:
-'novalidate': 'novalidate',
-to the "attr" list
-#}
 
 {% if not form.vars.valid %}
     <div class="alert alert-danger">
@@ -27,10 +22,12 @@ to the "attr" list
 <fieldset>
     <legend>Setup</legend>
     {{ form_row(form.projectDirectory, {
-    'help': 'help.project_directory',
-    'attr': {
-    'pattern': '^\/([a-zA-Z0-9][a-zA-Z0-9\-\.\_\/]{0,61})+[a-zA-Z]+$',
-    'title':   'Please enter a valid unix path like /var/www/my-project' }})
+            'help': 'help.project_directory',
+            'attr': {
+                'pattern': '^\/([a-zA-Z0-9][a-zA-Z0-9\-\.\_\/]{0,61})+[a-zA-Z]+$',
+                'title':   'Please enter a valid unix path like /var/www/my-project'
+            }
+        })
     }}
 
     {{ form_row(form.useGitCommits, {'help': 'help.use_git_commits'}) }}
@@ -40,11 +37,11 @@ to the "attr" list
 <fieldset>
     <legend>Symfony Configuration</legend>
     {{ form_row(form.symfonyVersion, {
-    'row_attr': {'class': 'col-sm-4'},
-    'help': 'help.symfony_version',
-    'help_raw': true
-    }
-    ) }}
+            'row_attr': {'class': 'col-sm-4'},
+            'help': 'help.symfony_version',
+            'help_replace': {'%link%': link('help.symfony_version.installation_page'|trans, {'href': 'http://symfony.com/download'})}
+        })
+    }}
 
     {{ form_row(form.removeDemoBundle, {'help': 'help.remove_demo_bundle'}) }}
 </fieldset>
@@ -63,10 +60,11 @@ to the "attr" list
     {% set bundle_prototype = form.bundles.vars.prototype %}
     <div class="col-xs-2">
         {{ form_label(
-        bundle_prototype.namespace,
-        label|default(null),
-        {'label_attr': {'class': 'col-sm-2 control-label' }}
-        ) }}
+                bundle_prototype.namespace,
+                label|default(null),
+                {'label_attr': {'class': 'col-sm-2 control-label' }}
+            )
+        }}
     </div>
 
     <div class="col-xs-4">
@@ -75,10 +73,11 @@ to the "attr" list
 
     <div class="col-xs-1">
         {{ form_label(
-        bundle_prototype.name,
-        label|default(null),
-        {'label_attr': {'class': 'control-label' }}
-        ) }}
+                bundle_prototype.name,
+                label|default(null),
+                {'label_attr': {'class': 'control-label' }}
+            )
+        }}
     </div>
     <div class="col-xs-3">
         {{ form_widget(bundle_prototype.name, {'help': 'help.bundle'}) }}
@@ -92,18 +91,15 @@ to the "attr" list
 
 <fieldset>
     <legend>{{ 'label.bundles'|trans }}</legend>
-    <p class="help-block">
-        Each bundle is hosted under a namespace (like <code>Acme/Bundle/MyBundle</code>).
-        The namespace should begin with a "vendor" name like your company name, your
-        project name, or your client name, followed by one or more optional category
-        sub-namespaces, and it should end with the bundle name itself
-        (which must have Bundle as a suffix).
-    </p>
+    <p class="help-block">{{ 'bundles.intro'|trans|purify }}</p>
 
     <p class="help-block">
-        See <a href="http://symfony.com/doc/current/cookbook/bundles/best_practices.html#index-1">Best Practices</a>
-        chapter
-        in the official cookbock for more details on bundle naming conventions.
+        {{ 'bundles.intro_more'
+            |trans
+            |rreplace(
+                {'%link%': link('bundles.intro_more.best_practices'|trans, {'href': 'http://symfony.com/doc/current/cookbook/bundles/best_practices.html#index-1'})}
+            )
+        }}
     </p>
 
     <div class="form-group">
@@ -112,10 +108,11 @@ to the "attr" list
                 <li class="clearfix">
                     <div class="col-xs-2">
                         {{ form_label(
-                        bundle.namespace,
-                        label|default(null),
-                        {'label_attr': {'class': 'col-sm-2 control-label' }}
-                        ) }}
+                                bundle.namespace,
+                                label|default(null),
+                                {'label_attr': {'class': 'col-sm-2 control-label' }}
+                            )
+                        }}
                     </div>
 
                     <div class="col-xs-4{{ form_helper.errors_class(bundle.namespace) }}">
@@ -125,10 +122,11 @@ to the "attr" list
 
                     <div class="col-xs-1">
                         {{ form_label(
-                        bundle.name,
-                        label|default(null),
-                        {'label_attr': {'class': 'control-label' }}
-                        ) }}
+                                bundle.name,
+                                label|default(null),
+                                {'label_attr': {'class': 'control-label' }}
+                            )
+                        }}
                     </div>
                     <div class="col-xs-3{{ form_helper.errors_class(bundle.name) }}">
                         {{ form_widget(bundle.name, {'help': 'help.bundle'}) }}

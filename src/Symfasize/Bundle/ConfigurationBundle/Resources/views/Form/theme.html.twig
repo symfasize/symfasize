@@ -41,7 +41,13 @@
                     </label>
 
                     {% if help is defined %}
-                        <div class="help-block">{{ help|trans }}</div>
+                        <div class="help-block">
+                            {% if help_replace is defined %}
+                                {{ help|trans|purify|rreplace(help_replace) }}
+                            {% else %}
+                                {{ help|trans|purify }}
+                            {% endif %}
+                        </div>
                     {% endif %}
                 </div>
             </div>
@@ -60,10 +66,10 @@
 
                 {% if help is defined %}
                     <div class="help-block">
-                        {% if help_raw is defined and help_raw %}
-                            {{ help|trans|raw }}
+                        {% if help_replace is defined %}
+                            {{ help|trans|purify|rreplace(help_replace) }}
                         {% else %}
-                            {{ help|trans }}
+                            {{ help|trans|purify }}
                         {% endif %}
                     </div>
                 {% endif %}

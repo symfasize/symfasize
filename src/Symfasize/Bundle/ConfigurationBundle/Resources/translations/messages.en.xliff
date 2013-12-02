@@ -42,7 +42,24 @@
                 <source>label.bundles</source>
                 <target>Bundles</target>
             </trans-unit>
-
+            <trans-unit id="bundles.intro">
+                <source>bundles.intro</source>
+                <target>Each bundle is hosted under a namespace (like %CODE%Acme/Bundle/MyBundle%END_CODE%).
+                    The namespace should begin with a "vendor" name like your company name, your
+                    project name, or your client name, followed by one or more optional category
+                    sub-namespaces, and it should end with the bundle name itself
+                    (which must have Bundle as a suffix).
+                </target>
+            </trans-unit>
+            <trans-unit id="bundles.intro_more">
+                <source>bundles.intro_more</source>
+                <target>See %link% chapter in the official cookbock for more details on bundle naming conventions.
+                </target>
+            </trans-unit>
+            <trans-unit id="bundles.intro_more.best_practices">
+                <source>bundles.intro_more.best_practices</source>
+                <target>Best Practices</target>
+            </trans-unit>
             <trans-unit id="missing_options_question">
                 <source>missing_options_question</source>
                 <target>Missing some configuration options?</target>
@@ -53,25 +70,34 @@
             </trans-unit>
             <trans-unit id="help.project_directory">
                 <source>help.project_directory</source>
-                <target>The directory where the new Symfony project should live in. This directory must not exist! Symfasize will generate this directory during it's setup.</target>
+                <target>The directory where the new Symfony project should live in. This directory must not exist!
+                    Symfasize will generate this directory during it's setup.
+                </target>
             </trans-unit>
             <trans-unit id="help.use_git_commits">
                 <source>help.use_git_commits</source>
                 <target>If enabled a Git repository will be initialized after project generation
-                and after each step of code manipulation a commit will be done.</target>
+                    and after each step of code manipulation a commit will be done.
+                </target>
             </trans-unit>
             <trans-unit id="help.generate_script_only">
                 <source>help.generate_script_only</source>
                 <target>By default Symfasize generates a plain shell script after you hit the submit button.
-                When you disable this option a file archive with this shell script and an configuration file (for future usage) will be
-                generated.</target>
+                    When you disable this option a file archive with this shell script and an configuration file (for
+                    future usage) will be
+                    generated.
+                </target>
             </trans-unit>
             <trans-unit id="help.symfony_version">
                 <source>help.symfony_version</source>
                 <target>Any available Symfony version, like e.g 2.2.10, 2.3.7.
-                    Check the <![CDATA[<a href="http://symfony.com/download">Symfony Installation Page</a>]]> for all possible releases.
+                    Check the %link% for all possible releases.
                     Leave this field blank to get the latest version!
                 </target>
+            </trans-unit>
+            <trans-unit id="help.symfony_version.installation_page">
+                <source>help.symfony_version.installation_page</source>
+                <target>Symfony Installation Page</target>
             </trans-unit>
             <trans-unit id="help.remove_demo_bundle">
                 <source>help.remove_demo_bundle</source>
@@ -79,10 +105,6 @@
                     it's Bundle configuration you may drop this bundle and all it's configuration.
                 </target>
             </trans-unit>
-
-
-
-
         </body>
     </file>
 </xliff>
