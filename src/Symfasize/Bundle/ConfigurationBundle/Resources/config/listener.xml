@@ -20,6 +20,7 @@
             <tag name="kernel.event_listener" event="symfasize.project.generate" method="onProjectGenerate"/>
             <tag name="kernel.event_listener" event="symfasize.demo_bundle.remove" method="onDemoBundleRemove"/>
             <tag name="kernel.event_listener" event="symfasize.bundle.generate" method="onBundleGenerate"/>
+            <tag name="kernel.event_listener" event="symfasize.bundle_wizard.install" method="onInstallBundleWizard"/>
         </service>
     </services>
 

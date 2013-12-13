@@ -105,6 +105,28 @@
                     it's Bundle configuration you may drop this bundle and all it's configuration.
                 </target>
             </trans-unit>
+
+            <trans-unit id="label.helpers">
+                <source>label.helpers</source>
+                <target>Helpers</target>
+            </trans-unit>
+            <trans-unit id="help.with_bundle_wizard">
+                <source>help.with_bundle_wizard</source>
+                <target>
+                    %link_bundle_wizard% automagically registers bundles which
+                    have been downloaded using %link_composer_require%.
+                    This means no more manual edition of the AppKernel file to
+                    add a bundle namespace after downloading a new bundle.
+                </target>
+            </trans-unit>
+            <trans-unit id="link.helpers.bundle_wizard">
+                <source>link.helpers.bundle_wizard</source>
+                <target>GnugatWizardBundle</target>
+            </trans-unit>
+            <trans-unit id="link.helpers.composer_require">
+                <source>link.helpers.composer_require</source>
+                <target>Composer's require command</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -76,4 +76,11 @@ $PHP app/console generate:bundle --namespace={{ bundle.namespace }} --bundle-nam
 {{ dispatch('symfasize.bundle.generate', {'bundle': bundle}) }}
 {% endfor %}
 
+{% if symfony_configuration.shouldInstallBundleWizard %}
+# install GnugatWizardBundle
+{{ self.echo('Installing GnugatWizardBundle') }}
+curl -sS https://raw.github.com/gnugat/wizard-plugin/master/bin/installer.sh | sh
+{{ dispatch('symfasize.bundle_wizard.install') }}
+{% endif %}
+
 {% macro echo(message) %}echo -e "\033[32m {{ message }}"{% endmacro %}

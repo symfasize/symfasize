@@ -144,6 +144,28 @@
     </div>
 </fieldset>
 
+<fieldset>
+    <legend>{{ 'label.helpers'|trans }}</legend>
+    <p class="help-block">
+        Optionally pre-install bundles to make your life easier.
+    </p>
+
+    {{ form_row(form.withBundleWizard, {
+        'row_attr': {'class': 'col-sm-4'},
+        'help': 'help.with_bundle_wizard',
+        'help_replace': {
+            '%link_bundle_wizard%': link(
+                'link.helpers.bundle_wizard'|trans,
+                {'href': 'https://github.com/gnugat/GnugatWizardBundle'}
+            ),
+            '%link_composer_require%': link(
+                'link.helpers.composer_require'|trans,
+                {'href': 'http://getcomposer.org/doc/03-cli.md#require'}
+            )
+        }
+    }) }}
+</fieldset>
+
 <div class="alert alert-warning">
     {{ 'missing_options_question'|trans }} <a
             href="{{ repository_url }}" class="alert-link">{{ 'missing_options_contribute'|trans }}</a>

@@ -42,7 +42,13 @@ class ConfigurationAssembler
         // assemble rest of Symfony configuration
         $version = $dtoConfiguration->getSymfonyVersion();
         $removeDemoBundle = $dtoConfiguration->getRemoveDemoBundle();
-        $symfonyConfiguration = new SymfonyConfiguration($bundles, $version, $removeDemoBundle);
+        $installBundleWizard = $dtoConfiguration->getWithBundleWizard();
+        $symfonyConfiguration = new SymfonyConfiguration(
+            $bundles,
+            $version,
+            $removeDemoBundle,
+            $installBundleWizard
+        );
 
         return new ModelConfiguration($projectConfiguration, $symfonyConfiguration);
     }

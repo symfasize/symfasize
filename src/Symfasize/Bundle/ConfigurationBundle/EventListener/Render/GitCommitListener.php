@@ -56,6 +56,15 @@ class GitCommitListener
     }
 
     /**
+     * @param RenderEvent $event
+     */
+    public function onInstallBundleWizard(RenderEvent $event)
+    {
+        $event->addContentLine('git add -A');
+        $event->addContentLine($this->buildCommitCommand('installed GnugatWizardBundle'));
+    }
+
+    /**
      * @param string $message
      *
      * @return string
