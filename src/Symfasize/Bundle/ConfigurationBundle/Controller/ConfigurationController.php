@@ -41,6 +41,7 @@ class ConfigurationController extends Controller
                 );
 
                 $filename = 'symfasize.sh';
+                $response->headers->set('Content-Type', 'text/plain');
             } else {
 
                 $archive = $this->getArchiveBuilder()->build($configuration);
